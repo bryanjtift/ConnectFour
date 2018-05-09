@@ -7,6 +7,8 @@ import me.HeyAwesomePeople.ConnectFour.gui.GamePage;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GameManager {
@@ -38,6 +40,7 @@ public class GameManager {
     // Manages board locations and images
     private GamePiece[][] boardImgs = new GamePiece[10][10];
     private User[][] board = new User[10][10];
+    private ArrayList<GamePiece> gamePieces = new ArrayList<>();
 
     public GameManager(GamePage game) {
         this.game = game;
@@ -55,6 +58,9 @@ public class GameManager {
         setupGame();
     }
 
+    /**
+     * Sets up the game
+     */
     private void setupGame() {
         setupPlacements();
         setupGameBoard();
@@ -64,6 +70,12 @@ public class GameManager {
             setTurn(User.RED);
         } else {
             setTurn(User.BLUE);
+        }
+
+        // Ensures the game board has all undefined parts
+        Iterator<GamePiece> iterator = gamePieces.iterator();
+        while (iterator.hasNext()) {
+            iterator.next().setUser(User.UNDEFINED);
         }
     }
 
@@ -102,6 +114,7 @@ public class GameManager {
                 point.setIcon(grayIcon);
                 board[x][y] = User.UNDEFINED;
                 boardImgs[x][y] = point;
+                gamePieces.add(point);
             }
         }
 

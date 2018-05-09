@@ -4,7 +4,7 @@ import me.HeyAwesomePeople.ConnectFour.User;
 
 import javax.swing.*;
 
-abstract class GamePiece extends JLabel {
+class GamePiece extends JLabel {
 
     private User user;
 
